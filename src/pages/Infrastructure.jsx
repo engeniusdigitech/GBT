@@ -3,43 +3,66 @@ import {
   Factory, Shield, Microscope, Settings, Truck, ArrowRight, CheckCircle2
 } from 'lucide-react';
 import { FadeInSection, StaggerContainer, StaggerItem } from '../components/Animations';
-
-const facilities = [
-  {
-    icon: Factory,
-    title: 'Jeera Processing Unit',
-    desc: 'Dedicated facility equipped with industrial cleaning and grading machines. Handles thousands of kilograms daily with full traceability from raw to packed.',
-    features: ['Multi-stage cleaning', 'Optical sorting available', 'Moisture-controlled storage', 'Batch tracking'],
-  },
-  {
-    icon: Settings,
-    title: 'Psyllium Husk Unit',
-    desc: 'Specialized processing line for psyllium husk extraction and grading. Capable of producing multiple mesh sizes in pharmaceutical and food grades.',
-    features: ['Husk separation lines', 'Multi-mesh sieving', 'Dust-free packaging area', 'Laboratory grade testing'],
-  },
-  {
-    icon: Factory,
-    title: 'Cattle Feed Plant',
-    desc: 'Fully equipped feed manufacturing unit producing pellets and mash feed. Scientifically formulated for optimal livestock nutrition.',
-    features: ['Pelleting machines', 'Mixer and blender units', 'Mineral supplement dosing', 'Automated bagging'],
-  },
-  {
-    icon: Truck,
-    title: 'Warehousing & Dispatch',
-    desc: 'Dry, pest-controlled warehouse for finished goods storage. Capable of handling bulk and palletized export shipments.',
-    features: ['Temperature controlled storage', 'FIFO inventory management', 'Export container loading', '24/7 dispatch support'],
-  },
-];
-
-const qcSteps = [
-  { step: '01', title: 'Raw Material Inspection', desc: 'Each incoming batch is inspected for moisture, foreign matter, and physical quality before acceptance.' },
-  { step: '02', title: 'In-Process Monitoring', desc: 'Continuous monitoring during cleaning, grading, and processing to ensure consistency at every stage.' },
-  { step: '03', title: 'Lab Analysis', desc: 'Samples from every production batch are tested for purity, moisture, essential oil content, and microbial count.' },
-  { step: '04', title: 'Packaging Check', desc: 'Final packed lots are weighed, sealed, and labeled with batch codes before clearance for dispatch.' },
-  { step: '05', title: 'Export Documentation', desc: 'Complete export documentation including Certificate of Analysis, phytosanitary, and origin certificates.' },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Infrastructure() {
+  const { t } = useTranslation();
+
+  const facilities = [
+    {
+      icon: Factory,
+      title: t('infra.units.jeera.title', 'Jeera Processing Unit'),
+      desc: t('infra.units.jeera.desc'),
+      features: [
+        t('infra.features.cleaning', 'Multi-stage cleaning'),
+        t('infra.features.sorting', 'Optical sorting'),
+        t('infra.features.storage', 'Moisture-controlled storage'),
+        t('infra.features.tracking', 'Batch tracking'),
+      ],
+    },
+    {
+      icon: Settings,
+      title: t('infra.units.psyllium.title', 'Psyllium Husk Unit'),
+      desc: t('infra.units.psyllium.desc'),
+      features: [
+        t('infra.features.extraction', 'Husk separation lines'),
+        t('infra.features.sieving', 'Multi-mesh sieving'),
+        t('infra.features.dustfree', 'Dust-free packaging'),
+        t('infra.features.lab', 'Laboratory grade testing'),
+      ],
+    },
+    {
+      icon: Settings,
+      title: t('infra.units.psylliumPowder.title', 'Psyllium Milling Unit'),
+      desc: t('infra.units.psylliumPowder.desc'),
+      features: [
+        t('infra.features.milling', 'Precision milling machines'),
+        t('infra.features.blending', 'High-speed blender units'),
+        t('infra.features.dosing', 'Precision mineral dosing'),
+        t('infra.features.auto', 'Automated vacuum bagging'),
+      ],
+    },
+    {
+      icon: Truck,
+      title: t('infra.units.warehouse.title', 'Warehousing & Dispatch'),
+      desc: t('infra.units.warehouse.desc'),
+      features: [
+        t('infra.features.temp', 'Temperature controlled'),
+        t('infra.features.fifo', 'FIFO management'),
+        t('infra.features.loading', 'Export container loading'),
+        t('infra.features.support', '24/7 dispatch support'),
+      ],
+    },
+  ];
+
+  const qcSteps = [
+    { step: '01', title: t('infra.qc.s1.title'), desc: t('infra.qc.s1.desc') },
+    { step: '02', title: t('infra.qc.s2.title'), desc: t('infra.qc.s2.desc') },
+    { step: '03', title: t('infra.qc.s3.title'), desc: t('infra.qc.s3.desc') },
+    { step: '04', title: t('infra.qc.s4.title'), desc: t('infra.qc.s4.desc') },
+    { step: '05', title: t('infra.qc.s5.title'), desc: t('infra.qc.s5.desc') },
+  ];
+
   return (
     <div className="pt-20">
       {/* === PAGE HEADER === */}
@@ -48,13 +71,13 @@ export default function Infrastructure() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a130a]/90 to-[#0a130a]" />
         <div className="wrap relative z-10 text-center">
           <FadeInSection>
-            <span className="eyebrow">Our Facilities</span>
+            <span className="eyebrow">{t('infra.header.eyebrow')}</span>
             <div className="rule-c" />
             <h1 className="font-display text-5xl sm:text-6xl font-bold text-white mt-2 mb-5">
-              World-Class Infrastructure
+              {t('infra.header.title')}
             </h1>
             <p className="text-slate-400 max-w-xl mx-auto text-lg">
-              Owned production units in Unjha, Gujarat — built for scale, consistency, and export compliance.
+              {t('infra.header.subtitle')}
             </p>
           </FadeInSection>
         </div>
@@ -75,23 +98,23 @@ export default function Infrastructure() {
               </div>
             </FadeInSection>
             <FadeInSection delay={0.2}>
-              <span className="eyebrow">Our Unjha Base</span>
+              <span className="eyebrow">{t('infra.base.eyebrow')}</span>
               <div className="rule" />
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-5">
-                Fully Owned, Fully Controlled
+                {t('infra.base.title')}
               </h2>
               <p className="text-slate-400 leading-relaxed mb-4">
-                Gujarat Bio Tech owns and operates all its production facilities in Unjha, Mehsana. This means no outsourcing, no dependency on third parties, and complete control over quality, timelines, and packaging standards.
+                {t('infra.base.desc1')}
               </p>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Our facilities are strategically located at Survey Number 1283, Unjha-Unava Highway — close to the Unjha APMC Mandi for direct, uninterrupted raw material access.
+                {t('infra.base.desc2')}
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: 'Production Units', value: '3' },
-                  { label: 'Processing Capacity', value: 'High Volume Daily' },
-                  { label: 'QC Lab', value: 'In-House' },
-                  { label: 'Dispatch', value: 'Direct Export' },
+                  { label: t('infra.stats.units'), value: '3' },
+                  { label: t('infra.stats.capacity'), value: t('infra.stats.capacityVal') },
+                  { label: t('infra.stats.lab'), value: t('infra.stats.labVal') },
+                  { label: t('infra.stats.dispatch'), value: t('infra.stats.dispatchVal') },
                 ].map((item) => (
                   <div key={item.label} className="glass p-4">
                     <p className="text-green-400 font-bold text-lg">{item.value}</p>
@@ -104,10 +127,10 @@ export default function Infrastructure() {
 
           {/* Facility Cards */}
           <FadeInSection className="text-center mb-10">
-            <span className="eyebrow">Production Units</span>
+            <span className="eyebrow">{t('about.values.infrastructure')}</span>
             <div className="rule-c" />
             <h2 className="font-display text-3xl font-bold text-white mt-2">
-              Our Dedicated Processing Lines
+              {t('infra.units.header')}
             </h2>
           </FadeInSection>
 
@@ -142,13 +165,13 @@ export default function Infrastructure() {
             <div className="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-4">
               <Shield className="w-7 h-7 text-green-400" />
             </div>
-            <span className="eyebrow">Quality First</span>
+            <span className="eyebrow">{t('infra.qc.eyebrow')}</span>
             <div className="rule-c" />
             <h2 className="font-display text-4xl font-bold text-white mt-2">
-              5-Stage Quality Control
+              {t('infra.qc.titleLong')}
             </h2>
             <p className="text-slate-400 max-w-lg mx-auto mt-3">
-              Every lot passes through a rigorous 5-step quality control process before it's cleared for export.
+              {t('infra.qc.subtitle')}
             </p>
           </FadeInSection>
 
@@ -181,13 +204,13 @@ export default function Infrastructure() {
           <FadeInSection>
             <Microscope className="w-10 h-10 text-green-400 mx-auto mb-4" />
             <h2 className="font-display text-3xl font-bold text-white mb-4">
-              Interested in a Product Sample?
+              {t('infra.cta.title')}
             </h2>
             <p className="text-slate-400 mb-7 max-w-md mx-auto">
-              We offer lab-tested product samples with Certificate of Analysis for serious buyers.
+              {t('infra.cta.subtitle')}
             </p>
             <Link to="/contact" className="btn-green">
-              Request a Sample <ArrowRight className="w-4 h-4" />
+              {t('infra.cta.button')} <ArrowRight className="w-4 h-4" />
             </Link>
           </FadeInSection>
         </div>

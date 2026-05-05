@@ -2,97 +2,81 @@ import { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { CheckCircle2, ArrowRight, Package } from 'lucide-react';
 import { FadeInSection, StaggerContainer, StaggerItem } from '../components/Animations';
-
-const products = [
-  {
-    id: 'psyllium',
-    name: 'Psyllium Husk',
-    tagline: 'Nature\'s Premium Dietary Fiber',
-    image: '/psyllium.png',
-    badge: 'Export Grade',
-    badgeColor: 'bg-amber-500',
-    accentColor: 'border-amber-500',
-    description: `Psyllium husk (isabgol) from Gujarat Bio Tech is processed from certified Plantago ovata seeds cultivated in the farms of North Gujarat. Our dedicated psyllium unit ensures each batch meets stringent international purity standards, making it suitable for pharmaceutical, nutraceutical, and food industry applications worldwide.`,
-    useCases: 'Pharmaceutical formulations, dietary supplements, natural laxatives, food fiber enrichment, industrial thickeners.',
-    specs: [
-      { label: 'Purity', value: '99% min' },
-      { label: 'Husk Content', value: '≥98.5%' },
-      { label: 'Moisture', value: '≤14%' },
-      { label: 'Ash Content', value: '≤4%' },
-      { label: 'Swelling Factor', value: '≥40 mL/g' },
-      { label: 'Mesh Sizes', value: '10, 30, 40, 60' },
-      { label: 'Packaging', value: '25kg / 50kg bags' },
-      { label: 'Origin', value: 'Unjha, Gujarat, India' },
-    ],
-    highlights: [
-      'High swelling factor for superior fiber efficacy',
-      'Multiple mesh sizes available',
-      'Pharmaceutical and food grade',
-      'Bulk and retail packaging',
-      'Custom labeling for export',
-    ],
-  },
-  {
-    id: 'jeera',
-    name: 'Cumin (Jeera)',
-    tagline: 'Unjha\'s Signature Spice — High Aroma & Essential Oil',
-    image: '/jeera.png',
-    badge: 'Flagship Product',
-    badgeColor: 'bg-green-500',
-    accentColor: 'border-green-500',
-    description: `Our flagship product — Cumin (Jeera) — is sourced directly from the Unjha mandi, the world's largest cumin trading hub. Gujarat Bio Tech's cumin is known for its superior essential oil content, deep aroma, and consistent coloration. Available as hand-cleaned whole seeds or machined-cleaned processed grades for export.`,
-    brand: 'Retail brand: "Manpasand Jeera" — available for domestic and export retail.',
-    useCases: 'Spice blends, food processing, essential oil extraction, seasoning mixes, restaurant bulk supply.',
-    specs: [
-      { label: 'Type', value: 'Whole / Processed / Cleaned' },
-      { label: 'Essential Oil', value: '3-4%' },
-      { label: 'Moisture', value: '≤11%' },
-      { label: 'Purity', value: '98-99%' },
-      { label: 'Foreign Matter', value: '≤1%' },
-      { label: 'Color', value: 'Bright green-brown' },
-      { label: 'Packaging', value: '25kg / 50kg bags, retail packs' },
-      { label: 'Origin', value: 'Unjha, Mehsana, Gujarat' },
-    ],
-    highlights: [
-      'Sourced from Unjha — world\'s largest cumin market',
-      'High essential oil content (3-4%)',
-      'Retail brand "Manpasand" available',
-      'Machine-cleaned & hand-picked grades',
-      'FSSAI compliant export documentation',
-    ],
-  },
-  {
-    id: 'cattle-feed',
-    name: 'Cattle Feed',
-    tagline: 'Optimum Nutrition for Maximum Livestock Productivity',
-    image: '/cattle-feed.png',
-    badge: 'Nutrient Rich',
-    badgeColor: 'bg-emerald-600',
-    accentColor: 'border-emerald-500',
-    description: `Gujarat Bio Tech's cattle feed is scientifically formulated using a balanced combination of protein-rich ingredients, grains, and minerals. Manufactured at our dedicated cattle feed unit, this product is designed to enhance the productivity, health, and growth of dairy and farm animals.`,
-    useCases: 'Dairy farms, poultry operations, livestock agriculture, animal husbandry units.',
-    specs: [
-      { label: 'Protein', value: '18-20%' },
-      { label: 'Fat', value: '3-4%' },
-      { label: 'Fiber (max)', value: '12%' },
-      { label: 'Moisture', value: '≤12%' },
-      { label: 'Form', value: 'Pellet / Mash' },
-      { label: 'Packaging', value: '40kg / 50kg bags' },
-      { label: 'Additives', value: 'Minerals, Vitamins' },
-      { label: 'Origin', value: 'Unjha, Gujarat, India' },
-    ],
-    highlights: [
-      'Balanced protein and energy formula',
-      'Promotes dairy milk yield',
-      'No harmful additives',
-      'Available in pellet and mash form',
-      'Bulk delivery across Gujarat',
-    ],
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Products() {
+  const { t } = useTranslation();
   const location = useLocation();
+
+  const products = [
+    {
+      id: 'psyllium',
+      name: 'Psyllium Husk',
+      tagline: t('home.products.psyllium.tagline', 'Nature\'s Premium Dietary Fiber'),
+      image: '/psyllium.png',
+      badge: t('home.products.psyllium.badge', 'Export Grade'),
+      badgeColor: 'bg-amber-500',
+      accentColor: 'border-amber-500',
+      description: t('products.psyllium.desc', 'Psyllium husk from Gujarat Bio Tech is processed from certified Plantago ovata seeds.'),
+      useCases: t('products.psyllium.useCases', 'Pharmaceutical formulations, dietary supplements, food fiber enrichment.'),
+      specs: [
+        { label: t('products.labels.purity', 'Purity'), value: '99% min' },
+        { label: t('products.labels.moisture', 'Moisture'), value: '≤14%' },
+        { label: t('products.labels.packaging', 'Packaging'), value: '25kg / 50kg bags' },
+        { label: t('products.labels.origin', 'Origin'), value: 'Unjha, Gujarat, India' },
+      ],
+      highlights: [
+        t('products.psyllium.h1', 'High swelling factor for superior fiber efficacy'),
+        t('products.psyllium.h2', 'Multiple mesh sizes available'),
+        t('products.psyllium.h3', 'Pharmaceutical and food grade'),
+      ],
+    },
+    {
+      id: 'jeera',
+      name: 'Cumin (Jeera)',
+      tagline: t('home.products.jeera.tagline', 'Unjha\'s Signature Spice'),
+      image: '/jeera.png',
+      badge: t('home.products.jeera.badge', 'Flagship Product'),
+      badgeColor: 'bg-green-500',
+      accentColor: 'border-green-500',
+      description: t('products.jeera.desc', 'Our flagship product sourced directly from the Unjha mandi.'),
+      brand: t('products.jeera.brand', 'Retail brand: "Manpasand Jeera"'),
+      useCases: t('products.jeera.useCases', 'Spice blends, food processing, seasoning mixes.'),
+      specs: [
+        { label: t('products.labels.type', 'Type'), value: 'Whole / Processed' },
+        { label: t('products.labels.oil', 'Essential Oil'), value: '3-4%' },
+        { label: t('products.labels.purity', 'Purity'), value: '98-99%' },
+        { label: t('products.labels.packaging', 'Packaging'), value: 'Retail & Bulk' },
+      ],
+      highlights: [
+        t('products.jeera.h1', 'Sourced from Unjha — world\'s largest cumin market'),
+        t('products.jeera.h2', 'High essential oil content (3-4%)'),
+        t('products.jeera.h3', 'Machine-cleaned & hand-picked grades'),
+      ],
+    },
+    {
+      id: 'psyllium-powder',
+      name: 'Psyllium Husk Powder',
+      tagline: t('home.products.psylliumPowder.tagline', 'Pure Fiber Power'),
+      image: '/psyllium-powder.png',
+      badge: t('home.products.psylliumPowder.badge', 'Premium Grade'),
+      badgeColor: 'bg-emerald-600',
+      accentColor: 'border-emerald-500',
+      description: t('products.psylliumPowder.desc', 'Our Psyllium Husk Powder is milled to perfection, offering high purity and rapid dissolution.'),
+      useCases: t('products.psylliumPowder.useCases', 'Health drinks, baking applications, dietary fiber supplements.'),
+      specs: [
+        { label: t('products.labels.purity', 'Purity'), value: '85% to 99%' },
+        { label: t('products.labels.moisture', 'Moisture'), value: '≤12%' },
+        { label: t('products.labels.packaging', 'Packaging'), value: '25kg Paper Bags / HDPE' },
+        { label: t('products.labels.origin', 'Origin'), value: 'Unjha, Gujarat, India' },
+      ],
+      highlights: [
+        t('products.psylliumPowder.h1', 'Ultra-fine mesh for smooth texture'),
+        t('products.psylliumPowder.h2', 'Rapid hydration and swelling'),
+        t('products.psylliumPowder.h3', 'Pharmaceutical and food grade available'),
+      ],
+    },
+  ];
 
   useEffect(() => {
     const hash = location.hash;
@@ -112,13 +96,13 @@ export default function Products() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a130a]/90 to-[#0a130a]" />
         <div className="wrap relative z-10 text-center">
           <FadeInSection>
-            <span className="eyebrow">Our Portfolio</span>
+            <span className="eyebrow">{t('products.header.eyebrow')}</span>
             <div className="rule-c" />
             <h1 className="font-display text-5xl sm:text-6xl font-bold text-white mt-2 mb-5">
-              Export-Quality Products
+              {t('products.header.title')}
             </h1>
             <p className="text-slate-400 max-w-xl mx-auto text-lg">
-              Three world-class product lines — processed, packed, and export-ready from Unjha, Gujarat.
+              {t('products.header.subtitle')}
             </p>
           </FadeInSection>
 
@@ -178,7 +162,7 @@ export default function Products() {
                   </div>
                 )}
                 <p className="text-slate-500 text-sm mb-5">
-                  <span className="text-slate-300 font-medium">Applications: </span>
+                  <span className="text-slate-300 font-medium">{t('products.labels.applications', 'Applications')}: </span>
                   {product.useCases}
                 </p>
 
@@ -193,7 +177,7 @@ export default function Products() {
                 </ul>
 
                 <Link to="/contact" className="btn-green">
-                  Inquire Now <ArrowRight className="w-4 h-4" />
+                  {t('products.inquire')} <ArrowRight className="w-4 h-4" />
                 </Link>
               </FadeInSection>
             </div>
@@ -202,7 +186,7 @@ export default function Products() {
             <FadeInSection delay={0.3} className="mt-10">
               <div className="glass overflow-hidden">
                 <div className="px-6 py-4 border-b border-green-900/40">
-                  <h3 className="font-display text-lg font-bold text-white">Technical Specifications</h3>
+                  <h3 className="font-display text-lg font-bold text-white">{t('products.specs')}</h3>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4">
                   {product.specs.map((spec, i) => (
@@ -225,19 +209,19 @@ export default function Products() {
       <section className="py-14 bg-[#0a130a]">
         <div className="wrap text-center">
           <FadeInSection>
-            <h2 className="font-display text-3xl font-bold text-white mb-4">Need Custom Quantities?</h2>
+            <h2 className="font-display text-3xl font-bold text-white mb-4">{t('products.custom.title')}</h2>
             <p className="text-slate-400 mb-7 max-w-md mx-auto">
-              We offer custom bulk orders, private label packaging, and export documentation support.
+              {t('products.custom.desc')}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/contact" className="btn-green">Request a Quote <ArrowRight className="w-4 h-4" /></Link>
+              <Link to="/contact" className="btn-green">{t('products.custom.quote')} <ArrowRight className="w-4 h-4" /></Link>
               <a
                 href="https://wa.me/918866428843?text=I'm interested in your products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost"
               >
-                Chat on WhatsApp
+                {t('products.custom.whatsapp')}
               </a>
             </div>
           </FadeInSection>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 export default function WhatsAppButton() {
   const phone = '918866428843';
   const message = encodeURIComponent(
-    "Hello! I'm interested in your export products (Psyllium Husk / Jeera / Cattle Feed). Please share more details."
+    "Hello! I'm interested in your export products (Psyllium Husk / Psyllium Husk Powder / Jeera). Please share more details."
   );
   const url = `https://wa.me/${phone}?text=${message}`;
 

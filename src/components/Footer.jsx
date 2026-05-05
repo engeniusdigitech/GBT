@@ -1,26 +1,30 @@
 import { Link } from 'react-router-dom';
 import { Leaf, MapPin, Phone, Mail, Globe, ArrowRight } from 'lucide-react';
-
-const footerLinks = {
-  Company: [
-    { label: 'About Us', to: '/about' },
-    { label: 'Infrastructure', to: '/infrastructure' },
-    { label: 'Contact', to: '/contact' },
-  ],
-  Products: [
-    { label: 'Psyllium Husk', to: '/products#psyllium' },
-    { label: 'Cumin (Jeera)', to: '/products#jeera' },
-    { label: 'Cattle Feed', to: '/products#cattle-feed' },
-  ],
-  Exports: [
-    { label: 'Middle East', to: '/contact' },
-    { label: 'Europe', to: '/contact' },
-    { label: 'North America', to: '/contact' },
-  ],
-};
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
   const year = new Date().getFullYear();
+
+  const footerLinks = {
+    [t('footer.company')]: [
+      { label: t('nav.about'), to: '/about' },
+      { label: t('nav.infrastructure'), to: '/infrastructure' },
+      { label: t('nav.contact'), to: '/contact' },
+    ],
+    [t('footer.productCol')]: [
+      { label: 'Psyllium Husk', to: '/products#psyllium' },
+      { label: 'Psyllium Husk Powder', to: '/products#psyllium-powder' },
+      { label: 'Cumin (Jeera)', to: '/products#jeera' },
+    ],
+    [t('footer.exports')]: [
+      { label: 'North America', to: '/contact' },
+      { label: 'Europe & UK', to: '/contact' },
+      { label: 'Middle East', to: '/contact' },
+      { label: 'Asia Pacific', to: '/contact' },
+    ],
+  };
+
   return (
     <footer className="bg-[#080f08] border-t border-green-950/60 pt-16 pb-8">
       <div className="wrap">
@@ -41,7 +45,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-5 max-w-xs">
-              Purity from Unjha to the World. India's premier Psyllium Husk and Cumin exporter, trusted by global buyers.
+              {t('footer.brand')}
             </p>
 
             {/* Contact Info */}
@@ -54,9 +58,9 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-green-600 group-hover:text-green-400" />
                 +91 84699 19203
               </a>
-              <a href="mailto:Dharmik.dave@newberry.in" className="flex items-center gap-2.5 text-slate-400 hover:text-green-400 text-sm transition-colors group">
+              <a href="mailto:marketing@gujaratbiotech.com" className="flex items-center gap-2.5 text-slate-400 hover:text-green-400 text-sm transition-colors group">
                 <Mail className="w-4 h-4 text-green-600 group-hover:text-green-400" />
-                Dharmik.dave@newberry.in
+                marketing@gujaratbiotech.com
               </a>
               <div className="flex items-start gap-2.5 text-slate-400 text-sm">
                 <MapPin className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -91,22 +95,22 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <Globe className="w-6 h-6 text-green-400 flex-shrink-0" />
             <div>
-              <p className="text-white font-semibold text-sm">Ready to source globally?</p>
-              <p className="text-slate-400 text-xs">Get competitive pricing on bulk exports.</p>
+              <p className="text-white font-semibold text-sm">{t('footer.ready')}</p>
+              <p className="text-slate-400 text-xs">{t('footer.pricing')}</p>
             </div>
           </div>
           <Link to="/contact" className="btn-green text-sm py-2.5 px-5 whitespace-nowrap">
-            Get a Free Quote
+            {t('nav.requestQuote')}
           </Link>
         </div>
 
         {/* Bottom bar */}
         <div className="border-t border-green-950/60 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-slate-500 text-xs">
-            © {year} Gujarat Bio Tech Pvt. Ltd. All rights reserved.
+            © {year} Gujarat Bio Tech Pvt. Ltd. {t('footer.rights')}
           </p>
           <p className="text-slate-600 text-xs">
-            Unjha, Mehsana, Gujarat, India — Jeera Capital of the World
+            Unjha, Mehsana, Gujarat, India — {t('footer.capital')}
           </p>
         </div>
       </div>

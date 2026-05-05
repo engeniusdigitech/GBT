@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Leaf, Mail, Phone, MapPin } from 'lucide-react';
+import { Menu, X, Leaf, Mail, Phone, MapPin, Globe, ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -12,9 +13,52 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const currentLang = i18n.language?.toUpperCase() || 'EN';
+  const langDropdownRef = useRef(null);
   const location = useLocation();
+
+  const navLinks = [
+    { label: t('nav.home'), to: '/' },
+    { label: t('nav.about'), to: '/about' },
+    { label: t('nav.products'), to: '/products' },
+    { label: t('nav.infrastructure'), to: '/infrastructure' },
+    { label: t('nav.contact'), to: '/contact' },
+  ];
+
+  const languages = [
+    { code: 'EN', name: 'English' },
+    { code: 'ES', name: 'Español' },
+    { code: 'AR', name: 'العربية' },
+    { code: 'HI', name: 'हिन्दी' },
+    { code: 'ZH', name: '中文' },
+    { code: 'FR', name: 'Français' },
+    { code: 'DE', name: 'Deutsch' },
+    { code: 'RU', name: 'Русский' },
+    { code: 'JA', name: '日本語' },
+    { code: 'KO', name: '한국어' },
+    { code: 'VI', name: 'Tiếng Việt' },
+    { code: 'TH', name: 'ไทย' }
+  ];
+
+  const handleLanguageChange = (code) => {
+    i18n.changeLanguage(code);
+    setLangOpen(false);
+    setMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -40,13 +84,13 @@ export default function Navbar() {
         >
           <div className="wrap h-full flex items-center justify-between text-xs text-slate-300 font-medium">
             <div className="flex items-center gap-6">
-              <a href="mailto:Dharmik.dave@newberry.in" className="flex items-center gap-2 hover:text-green-400 transition-colors">
+              <a href="mailto:marketing@gujaratbiotech.com" className="flex items-center gap-2 hover:text-green-400 transition-colors">
                 <Mail className="w-3.5 h-3.5" />
-                <span>Dharmik.dave@newberry.in</span>
+                <span>marketing@gujaratbiotech.com</span>
               </a>
-              <a href="mailto:Chaudharysamar14jan@gmail.com" className="hidden sm:flex items-center gap-2 hover:text-green-400 transition-colors border-l border-green-900/50 pl-6">
+              <a href="mailto:info@gujaratbiotech.com" className="hidden sm:flex items-center gap-2 hover:text-green-400 transition-colors border-l border-green-900/50 pl-6">
                 <Mail className="w-3.5 h-3.5" />
-                <span>Chaudharysamar14jan@gmail.com</span>
+                <span>info@gujaratbiotech.com</span>
               </a>
             </div>
             <div className="flex items-center gap-6">
@@ -111,31 +155,73 @@ export default function Navbar() {
             </ul>
 
             {/* CTAs */}
-            <div className="hidden lg:flex items-center gap-3 xl:gap-4">
-              <a 
-                href="mailto:Dharmik.dave@newberry.in" 
-                className="btn-ghost !px-4 !py-2.5 !text-sm border-white/20 text-white hover:border-green-500 hover:text-green-400"
-              >
-                <Mail className="w-4 h-4" /> Email Us
-              </a>
-              <Link
-                to="/contact"
-                className="btn-green !text-sm !py-2.5 !px-5 shadow-lg shadow-green-600/20"
-              >
-                Request Quote
-              </Link>
-            </div>
+            <div className="flex items-center gap-3 xl:gap-4">
+              {/* Language Dropdown (Desktop & Mobile) */}
+              <div className="relative" ref={langDropdownRef}>
+                <button
+                  onClick={() => setLangOpen(!langOpen)}
+                  className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors duration-200 px-2 py-2"
+                >
+                  <Globe className="w-4 h-4" />
+                  <span className="text-sm font-semibold">{currentLang}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence>
+                  {langOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-full mt-2 w-40 bg-[#1a2e1a] border border-green-900/50 rounded-xl shadow-xl overflow-hidden z-50 max-h-[60vh] overflow-y-auto scrollbar-hide"
+                    >
+                      <div className="flex flex-col py-1">
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => handleLanguageChange(lang.code)}
+                            className={`flex items-center justify-between px-4 py-2.5 text-sm transition-colors duration-200 ${
+                              currentLang.startsWith(lang.code)
+                                ? 'bg-green-500/10 text-green-400'
+                                : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                            }`}
+                          >
+                            <span>{lang.name}</span>
+                            {currentLang.startsWith(lang.code) && <Check className="w-4 h-4" />}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-green-500/50"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle navigation menu"
-            >
-              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+              {/* Desktop-only CTAs */}
+              <div className="hidden lg:flex items-center gap-3 xl:gap-4">
+                <a 
+                  href="mailto:marketing@gujaratbiotech.com" 
+                  className="btn-ghost !px-4 !py-2.5 !text-sm border-white/20 text-white hover:border-green-500 hover:text-green-400"
+                >
+                  <Mail className="w-4 h-4" /> {t('nav.emailUs')}
+                </a>
+                <Link
+                  to="/contact"
+                  className="btn-green !text-sm !py-2.5 !px-5 shadow-lg shadow-green-600/20"
+                >
+                  {t('nav.requestQuote')}
+                </Link>
+              </div>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                className="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-green-500/50"
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-label="Toggle navigation menu"
+              >
+                {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </nav>
-        </div>
       </header>
 
       {/* Mobile Menu */}
@@ -199,11 +285,11 @@ export default function Navbar() {
                   className="mt-8 space-y-4"
                 >
                   <div className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-4">Connect Directly</div>
-                  <a href="mailto:Dharmik.dave@newberry.in" className="btn-ghost w-full justify-center !py-3 !text-sm flex items-center gap-2">
-                    <Mail className="w-4 h-4" /> Email Us
+                  <a href="mailto:marketing@gujaratbiotech.com" className="btn-ghost w-full justify-center !py-3 !text-sm flex items-center gap-2">
+                    <Mail className="w-4 h-4" /> {t('nav.emailUs')}
                   </a>
                   <Link to="/contact" className="btn-green w-full justify-center !py-3 !text-sm">
-                    Request a Quote
+                    {t('nav.requestQuote')}
                   </Link>
                 </motion.div>
                 

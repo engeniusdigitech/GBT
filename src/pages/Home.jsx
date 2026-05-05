@@ -5,53 +5,56 @@ import {
   TrendingUp, CheckCircle2, Package
 } from 'lucide-react';
 import { FadeInSection, StaggerContainer, StaggerItem, ScaleOnHover } from '../components/Animations';
-
-const stats = [
-  { value: '99%', label: 'Purity Grade', icon: Star },
-  { value: '3+', label: 'Export Markets', icon: Globe },
-  { value: '100%', label: 'Quality Tested', icon: Shield },
-  { value: '15+', label: 'Years Experience', icon: Award },
-];
-
-const products = [
-  {
-    name: 'Psyllium Husk',
-    tagline: 'Nature\'s Premium Fiber',
-    description: 'Export-grade psyllium husk with very high fiber content and exceptional purity. Available in various mesh sizes for pharmaceutical, food, and industrial applications.',
-    image: '/psyllium.png',
-    badge: 'High Fiber',
-    color: 'from-amber-600/20 to-yellow-500/5',
-    link: '/products#psyllium',
-  },
-  {
-    name: 'Cumin (Jeera)',
-    tagline: 'Unjha\'s Signature Spice',
-    description: 'Flagship product with exceptional aroma and essential oil content. Sourced directly from the Jeera capital of the world. Available as whole seed and cleaned processed.',
-    image: '/jeera.png',
-    badge: 'Flagship',
-    color: 'from-orange-600/20 to-amber-500/5',
-    link: '/products#jeera',
-  },
-  {
-    name: 'Cattle Feed',
-    tagline: 'Optimum Livestock Nutrition',
-    description: 'Scientifically formulated, nutrient-rich cattle feed designed to maximize livestock productivity and health.',
-    image: '/cattle-feed.png',
-    badge: 'Nutrient Rich',
-    color: 'from-green-600/20 to-emerald-500/5',
-    link: '/products#cattle-feed',
-  },
-];
-
-const highlights = [
-  { icon: CheckCircle2, text: 'End-to-end supply chain from farm to packaging' },
-  { icon: CheckCircle2, text: 'Own processing units in Unjha, Gujarat' },
-  { icon: CheckCircle2, text: 'Strict quality control at every stage' },
-  { icon: CheckCircle2, text: 'Bulk export packaging available' },
-  { icon: CheckCircle2, text: 'Certified high-purity standards' },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: '99%', label: t('home.stats.purity'), icon: Star },
+    { value: '3+', label: t('home.stats.markets'), icon: Globe },
+    { value: '100%', label: t('home.stats.tested'), icon: Shield },
+    { value: '15+', label: t('home.stats.experience'), icon: Award },
+  ];
+
+  const products = [
+    {
+      name: 'Psyllium Husk',
+      tagline: t('home.products.psyllium.tagline', 'Nature\'s Premium Fiber'),
+      description: t('home.products.psyllium.desc', 'Export-grade psyllium husk with very high fiber content and exceptional purity.'),
+      image: '/psyllium.png',
+      badge: t('home.products.psyllium.badge', 'High Fiber'),
+      color: 'from-amber-600/20 to-yellow-500/5',
+      link: '/products#psyllium',
+    },
+    {
+      name: 'Cumin (Jeera)',
+      tagline: t('home.products.jeera.tagline', 'Unjha\'s Signature Spice'),
+      description: t('home.products.jeera.desc', 'Flagship product with exceptional aroma and essential oil content.'),
+      image: '/jeera.png',
+      badge: t('home.products.jeera.badge', 'Flagship'),
+      color: 'from-orange-600/20 to-amber-500/5',
+      link: '/products#jeera',
+    },
+    {
+      name: 'Psyllium Husk Powder',
+      tagline: t('home.products.psylliumPowder.tagline', 'Pure Fiber Power'),
+      description: t('home.products.psylliumPowder.desc', 'Fine-mesh psyllium powder for easy mixing and rapid efficacy.'),
+      image: '/psyllium-powder.png',
+      badge: t('home.products.psylliumPowder.badge', 'Pure Powder'),
+      color: 'from-green-600/20 to-emerald-500/5',
+      link: '/products#psyllium-powder',
+    },
+  ];
+
+  const highlights = [
+    { icon: CheckCircle2, text: t('home.whyUs.highlights.supply', 'End-to-end supply chain from farm to packaging') },
+    { icon: CheckCircle2, text: t('home.whyUs.highlights.unjha', 'Own processing units in Unjha, Gujarat') },
+    { icon: CheckCircle2, text: t('home.whyUs.highlights.quality', 'Strict quality control at every stage') },
+    { icon: CheckCircle2, text: t('home.whyUs.highlights.bulk', 'Bulk export packaging available') },
+    { icon: CheckCircle2, text: t('home.whyUs.highlights.certified', 'Certified high-purity standards') },
+  ];
+
   return (
     <div>
       {/* === HERO SECTION === */}
@@ -75,19 +78,6 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="max-w-3xl"
           >
-            {/* Tag */}
-            {/* <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-1.5 mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-green-400 text-xs font-semibold tracking-widest uppercase">
-                Unjha, Gujarat · Jeera Capital of the World
-              </span>
-            </motion.div> */}
-
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -95,8 +85,8 @@ export default function Home() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
             >
-              Purity from Unjha{' '}
-              <span className="grad-text">to the World</span>
+              {t('home.hero.title')}{' '}
+              <span className="grad-text">{t('home.hero.titleAccent')}</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -106,9 +96,9 @@ export default function Home() {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="text-slate-300 text-lg sm:text-xl leading-relaxed mb-8 max-w-xl"
             >
-              Gujarat Bio Tech Pvt. Ltd. — a premier processor and exporter of Psyllium Husk, Cumin (Jeera), and Cattle Feed. Serving international markets with uncompromising quality.
+              {t('home.hero.subtitle')}
             </motion.p>
-
+            
             {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -117,26 +107,11 @@ export default function Home() {
               className="flex flex-wrap gap-4"
             >
               <Link to="/contact" className="btn-green text-base px-7 py-3.5">
-                Request a Quote <ArrowRight className="w-4 h-4" />
+                {t('home.hero.ctaPrimary')} <ArrowRight className="w-4 h-4" />
               </Link>
               <Link to="/products" className="btn-ghost text-base px-7 py-3.5">
-                View Products
+                {t('home.hero.ctaSecondary')}
               </Link>
-            </motion.div>
-
-            {/* Export destinations */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-              className="mt-10 flex items-center gap-4 flex-wrap"
-            >
-              <span className="text-slate-500 text-xs uppercase tracking-widest">Exporting to</span>
-              {['🇦🇪 Middle East', '🇩🇪 Europe', '🇺🇸 North America'].map((dest) => (
-                <span key={dest} className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs text-slate-300 font-medium">
-                  {dest}
-                </span>
-              ))}
             </motion.div>
           </motion.div>
 
@@ -176,18 +151,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* === CERTIFICATES SECTION === */}
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="wrap">
+          <FadeInSection>
+            <div className="text-center mb-10">
+              <span className="text-green-600 text-xs font-bold uppercase tracking-widest">Global Standards</span>
+              <h2 className="text-3xl font-bold text-slate-900 mt-2">Our Certifications</h2>
+              <p className="text-slate-500 mt-2 max-w-lg mx-auto">We adhere to the highest international quality and safety benchmarks.</p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-80 hover:opacity-100 transition-opacity">
+              <img 
+                src="/certificates_banner.png" 
+                alt="Our Certificates" 
+                className="max-w-full h-auto rounded-lg shadow-sm"
+              />
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
+
       {/* === PRODUCTS PREVIEW === */}
       <section className="section-pad">
         <div className="wrap">
           <FadeInSection>
             <div className="text-center mb-14">
-              <span className="eyebrow">Our Products</span>
+              <span className="eyebrow">{t('home.products.eyebrow')}</span>
               <div className="rule-c" />
               <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mt-2 mb-4">
-                Export-Quality Agricultural Goods
+                {t('home.products.title')}
               </h2>
               <p className="text-slate-400 max-w-lg mx-auto">
-                Processed at our own facilities in Unjha with stringent quality checks at every step.
+                {t('home.products.subtitle')}
               </p>
             </div>
           </FadeInSection>
@@ -218,7 +214,7 @@ export default function Home() {
                       <h3 className="font-display text-xl font-bold text-white mb-2">{product.name}</h3>
                       <p className="text-slate-400 text-sm leading-relaxed mb-4">{product.description}</p>
                       <div className="flex items-center gap-1.5 text-green-400 text-sm font-semibold group-hover:gap-2.5 transition-all duration-300">
-                        View Details <ArrowRight className="w-4 h-4" />
+                        {t('home.products.viewDetails', 'View Details')} <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
                   </Link>
@@ -229,9 +225,72 @@ export default function Home() {
 
           <FadeInSection className="text-center mt-10">
             <Link to="/products" className="btn-ghost">
-              Explore All Products <ArrowRight className="w-4 h-4" />
+              {t('home.products.exploreAll', 'Explore All Products')} <ArrowRight className="w-4 h-4" />
             </Link>
           </FadeInSection>
+        </div>
+      </section>
+
+      {/* === GLOBAL REACH === */}
+      <section className="section-pad bg-[#0d180d] relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+          <Globe className="w-full h-full text-green-500 scale-150 translate-x-1/4" />
+        </div>
+        <div className="wrap relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <FadeInSection>
+              <span className="eyebrow">Global Reach</span>
+              <div className="rule" />
+              <h2 className="font-display text-4xl font-bold text-white mb-6">Serving Markets Across 6 Continents</h2>
+              <p className="text-slate-400 text-lg leading-relaxed mb-8">
+                With a robust supply chain and deep understanding of international compliance, we export premium Gujarat agricultural products to over 30 countries. Our logistics network ensures timely delivery and perfect product integrity.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  { region: 'North America', status: 'Major Partner' },
+                  { region: 'Europe', status: 'High Compliance' },
+                  { region: 'Middle East', status: 'Core Market' },
+                  { region: 'South East Asia', status: 'Fast Growing' }
+                ].map((item) => (
+                  <div key={item.region} className="bg-white/5 border border-white/10 p-4 rounded-xl">
+                    <div className="text-white font-bold">{item.region}</div>
+                    <div className="text-green-500 text-xs uppercase font-semibold mt-1">{item.status}</div>
+                  </div>
+                ))}
+              </div>
+            </FadeInSection>
+            
+            <FadeInSection delay={0.2}>
+              <div className="relative">
+                <div className="glass p-8 rounded-2xl border-green-500/20">
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      '🇺🇸 USA', '🇩🇪 Germany', '🇦🇪 UAE', '🇻🇳 Vietnam', '🇹🇭 Thailand', 
+                      '🇲🇾 Malaysia', '🇮🇩 Indonesia', '🇪🇬 Egypt', '🇲🇦 Morocco', '🇯🇵 Japan',
+                      '🇨🇳 China', '🇬🇧 UK', '🇫🇷 France', '🇲🇽 Mexico', '🇧🇷 Brazil', 
+                      '🇦🇺 Australia', '🇹🇷 Turkey', '🇿🇦 South Africa', '🇸🇦 Saudi Arabia',
+                      '🇰🇷 South Korea', '🇨🇦 Canada', '🇮🇹 Italy', '🇪🇸 Spain'
+                    ].map((dest) => (
+                      <span key={dest} className="bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 font-semibold hover:border-green-500/50 hover:bg-green-500/5 transition-all cursor-default">
+                        {dest}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+                    <div>
+                      <div className="text-white font-bold text-2xl">30+</div>
+                      <div className="text-slate-500 text-xs uppercase">Countries Exported</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-white font-bold text-2xl">500+</div>
+                      <div className="text-slate-500 text-xs uppercase">Annual Containers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeInSection>
+          </div>
         </div>
       </section>
 
@@ -256,8 +315,8 @@ export default function Home() {
                     <TrendingUp className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <div className="text-white font-bold text-lg">15+ Years</div>
-                    <div className="text-slate-400 text-xs">Processing Excellence</div>
+                    <div className="text-white font-bold text-lg">15+ {t('home.whyUs.years', 'Years')}</div>
+                    <div className="text-slate-400 text-xs">{t('home.whyUs.excellence', 'Processing Excellence')}</div>
                   </div>
                 </div>
               </div>
@@ -265,13 +324,13 @@ export default function Home() {
 
             {/* Text side */}
             <FadeInSection delay={0.2}>
-              <span className="eyebrow">Why Choose Us</span>
+              <span className="eyebrow">{t('home.whyUs.eyebrow')}</span>
               <div className="rule" />
               <h2 className="font-display text-4xl font-bold text-white mb-5">
-                Trusted by Global Buyers for Unmatched Purity
+                {t('home.whyUs.title')}
               </h2>
               <p className="text-slate-400 leading-relaxed mb-7">
-                From farm sourcing in Unjha to international packaging — we control every link in the supply chain to deliver consistent, high-purity products that meet global import standards.
+                {t('home.whyUs.desc')}
               </p>
               <ul className="space-y-3 mb-8">
                 {highlights.map((h) => (
@@ -282,7 +341,7 @@ export default function Home() {
                 ))}
               </ul>
               <Link to="/about" className="btn-green">
-                Learn About Us <ArrowRight className="w-4 h-4" />
+                {t('home.whyUs.learnMore', 'Learn About Us')} <ArrowRight className="w-4 h-4" />
               </Link>
             </FadeInSection>
           </div>
@@ -306,17 +365,17 @@ export default function Home() {
               <div className="relative z-10">
                 <Package className="w-10 h-10 text-green-200 mx-auto mb-4" />
                 <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-3">
-                  Ready to Source from India's Best?
+                  {t('home.cta.title')}
                 </h2>
                 <p className="text-green-100 mb-8 max-w-lg mx-auto">
-                  Contact us for competitive bulk pricing, product samples, and export documentation. We're ready to ship to your market.
+                  {t('home.cta.subtitle')}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Link
                     to="/contact"
                     className="bg-white text-green-800 font-bold px-7 py-3.5 rounded-lg hover:bg-green-50 transition-all duration-300 flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl"
                   >
-                    Get a Free Quote <ArrowRight className="w-4 h-4" />
+                    {t('home.cta.quote')} <ArrowRight className="w-4 h-4" />
                   </Link>
                   <a
                     href="https://wa.me/918866428843?text=Hello%21%20I%27m%20interested%20in%20sourcing%20your%20products."
@@ -324,7 +383,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="bg-[#25d366] text-white font-bold px-7 py-3.5 rounded-lg hover:bg-[#128c7e] transition-all duration-300 flex items-center gap-2 hover:-translate-y-1 hover:shadow-xl"
                   >
-                    WhatsApp Us
+                    {t('home.cta.whatsapp')}
                   </a>
                 </div>
               </div>
