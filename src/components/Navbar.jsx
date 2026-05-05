@@ -222,6 +222,7 @@ export default function Navbar() {
               </button>
             </div>
           </nav>
+        </div>
       </header>
 
       {/* Mobile Menu */}
